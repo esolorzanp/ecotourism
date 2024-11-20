@@ -10,5 +10,5 @@ DB_CONFIG = {
     "port": 3306,
     "user": "root",
     "password": "",
-    "database": "db_ecotourismesp"
+    "database": "dbEcoTourismEsp"
 }
