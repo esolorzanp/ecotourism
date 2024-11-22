@@ -1,0 +1,3 @@
+# Directorios excluidos de subir a repositorio local y remoto
+backend/Venv/
+frontend/Venv/
