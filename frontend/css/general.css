@@ -1,7 +1,32 @@
-
-.title {
-  font-family: "Montserrat", sans-serif;
+* {
+  font-family: "Montserrat", serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+}
+
+.form {
+  margin-top: 120px;
+  border: 1px solid lightgray;
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.form__title {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.form__buttonsgroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.form__button {
+  margin-right: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.form__button:last-child{
+  margin-right: 0px;
 }
