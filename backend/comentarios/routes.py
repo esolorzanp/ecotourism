@@ -13,7 +13,7 @@ def listar_comentarios():
     identity = get_jwt_identity()
     perfil_id = identity["perfil_id"]
 
-    if perfil_id != 2 | perfil_id !=3:  # Solo Supervisor (3) y empleado (2) pueden listar comentarios
+    if perfil_id != 2 & perfil_id !=3:  # Solo Supervisor (3) y empleado (2) pueden listar comentarios
         return jsonify({"msg": "No tiene permisos para listar comentarios"}), 403
 
     conn = get_db_connection()

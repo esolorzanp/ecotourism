@@ -15,7 +15,7 @@ def listar_equipo():
     perfil_id = identity["perfil_id"] # mismo error lo pueden listar los 3 roles REVISAR
 
     if perfil_id != 2 & perfil_id != 3:  # Solo empleado (2) y supervisor (3) pueden listar el equipo
-        return jsonify({"msg": "No tiene permisos para listar sitios"}), 403
+        return jsonify({"msg": "No tiene permisos para listar equipo"}), 403
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
@@ -40,7 +40,7 @@ def obtener_miembro_equipo(id):
     perfil_id = identity["perfil_id"]
 
     if perfil_id  != 2:  # Solo empleado (2) puede obtener al miembro del equipo por id
-        return jsonify({"msg": "No tiene permisos para obtner sitios"}), 403
+        return jsonify({"msg": "No tiene permisos para obtner equipo"}), 403
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
