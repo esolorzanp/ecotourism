@@ -40,13 +40,13 @@ const logout = () => {
                         <li v-show="perfil === 1" class="nav-item">
                             <a class="nav-link" href="/usuarios-list">Usuarios</a>
                         </li>
-                        <li v-show="perfil === 2" class="nav-item">
+                        <li v-show="perfil === 2 | perfil === 3" class="nav-item">
                             <a class="nav-link" href="#">Sitios</a>
                         </li>
-                        <li v-show="perfil === 2" class="nav-item">
+                        <li v-show="perfil === 2 | perfil === 3" class="nav-item">
                             <a class="nav-link" href="#">Comentarios</a>
                         </li>
-                        <li v-show="perfil === 2" class="nav-item">
+                        <li v-show="perfil === 2 | perfil === 3" class="nav-item">
                             <a class="nav-link" href="#">Preguntas frecuentes</a>
                         </li>
                     </ul>

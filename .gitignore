@@ -10,3 +10,4 @@ __pycache__/
 
 /backend/auth/__pycache__
 /backend/usuarios/__pycache__
+*.pyc

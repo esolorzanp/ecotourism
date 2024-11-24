@@ -193,8 +193,8 @@ onMounted(() => {
                 <!-- Buttons group-->
                 <div class="form__buttonsgroup">
                     <button type="submit" class="form__button btn btn-primary">Agregar</button>
-                    <button @click="goBack" class="form__button btn btn-secondary">Cancelar</button>
-                    <button @click="limpiar" class="form__button btn btn-light">Limpiar</button>
+                    <button @click="limpiar" class="form__button btn btn-secondary">Limpiar</button>
+                    <button @click="goBack" class="form__button btn btn-secondary">Regresar al menú</button>
                 </div>
             </section>
         </form>

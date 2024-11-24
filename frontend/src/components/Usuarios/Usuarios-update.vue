@@ -129,6 +129,7 @@ const updateUser = async () => {
         successMessage.value = ''
     }
 }
+
 // Función para validar si usuario ya existe por su correo
 const readUserxCorreo = async () => {
     const token = checkPermissions()
@@ -160,6 +161,7 @@ const readUserxCorreo = async () => {
         successMessage.value = ''
     }
 }
+
 const camposValidos = () => {
     if (inClave.value != inClaveConfirmada.value) {
         errorMessage.value = 'La constraseña y su confirmación no son las mismas'
@@ -194,7 +196,7 @@ onMounted(() => {
 <template>
     <main class="container">
         <form class="form" @submit.prevent="updateUser">
-            <h1 class="form__title">Actualización de usuario {{ inId }}</h1>
+            <h1 class="form__title">Actualización de usuario</h1>
             <section>
                 <p v-show="errorMessage" class="alert alert-danger">{{ errorMessage }}</p>
                 <p v-show="successMessage" class="alert alert-success">{{ successMessage }}</p>
@@ -208,17 +210,6 @@ onMounted(() => {
                         placeholder="name@example.com" :required="true">
                     <label for="floatingCorreo">Correo</label>
                 </div>
-                <!-- 
-                <div class="form-floating mb-3">
-                    <input v-model="inClave" type="password" class="form-control" id="floatingPassword"
-                        placeholder="name@example.com" :required="true" :disabled="true">
-                    <label for="floatingPassword">Contraseña</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input v-model="inClaveConfirmada" type="password" class="form-control" id="floatingConfirm"
-                        placeholder="name@example.com" :required="true" :disabled="true">
-                    <label for="floatingConfirm">Confirme su contraseña</label>
-                </div>-->
                 <select v-model="inPerfil" v-if="perfiles.length > 0" class="form-select"
                     aria-label="Default select example" :required="true">
                     <option value="" selected>Seleccione un perfil</option>
@@ -229,8 +220,8 @@ onMounted(() => {
                 <!-- Buttons group-->
                 <div class="form__buttonsgroup">
                     <button type="submit" class="form__button btn btn-primary">Actualizar</button>
+                    <button @click="limpiar" class="form__button btn btn-secondary">Limpiar</button>
                     <button @click="goBack" class="form__button btn btn-secondary">Regresar al menú</button>
-                    <button @click="limpiar" class="form__button btn btn-light">Limpiar</button>
                 </div>
             </section>
         </form>

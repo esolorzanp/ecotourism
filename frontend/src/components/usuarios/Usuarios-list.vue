@@ -59,10 +59,46 @@ const redirectCreate = () => {
     router.push("/usuarios-create")
 }
 
-// Función para eliminar un usuario
-const remove = async (id) => {
 
-    if (!confirm(`Seguro que desea eliminar el usuario ${correo}`)) {
+
+// Función para validar si usuario ya existe por su correo
+const readUserByid = async (id) => {
+    const token = checkPermissions()
+    if (!token) return
+
+    try {
+        const response = await axios.get(
+            `http://127.0.0.1:5000/usuarios/${id}`,
+            //{},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
+        const userCorreo = response.data.correo
+        const userId = response.data.id
+        console.log(response)
+        if (response.status === 201) {
+            console.log(userCorreo)
+            return userCorreo
+            //successMessage.value = ''
+            //errorMessage.value = 'Usuario ya existe con este correo'
+            return false
+        } else {
+            successMessage.value = ''
+            errorMessage.value = ''
+            return true
+        }
+    } catch (error) {
+        errorMessage.value = error.response?.data?.message || 'Error al leer el usuario por correo. (catch)'
+        successMessage.value = ''
+    }
+}
+
+// Función para eliminar un usuario
+const removeUser = async (id) => {
+    if (!confirm(`Seguro que desea eliminar el usuario ID: ${id}`)) {
         return
     }
 
@@ -76,7 +112,8 @@ const remove = async (id) => {
             },
         })
 
-        if (response.status === 200) {
+        if (response.status === 201) {
+            console.log("entra a response")
             usuarios.value = response.data
             successMessage.value = 'Usuario eliminado exitosamente.'
             errorMessage.value = ''
@@ -106,21 +143,21 @@ onMounted(() => {
             <h1 class="form__title">Gestión de usuarios</h1>
             <nav class="form__buttonsgroup">
                 <button @click="redirectCreate()" class="form__button btn btn-primary">Agregar</button>
-                <button @click="goBack" class="form__button btn btn-secondary">Menú</button>
+                <button @click="goBack" class="form__button btn btn-secondary">Regresar al menú</button>
             </nav>
-
-
-            <div v-if="errorMessage" class="alert alert-danger" role="alert">
+            <!-- Zona mensajes -->
+            <div v-show="errorMessage" class="alert alert-danger" role="alert">
                 {{ errorMessage }}
             </div>
-
-            <div v-if="successMessage" class="alert alert-success" role="alert">
+            <div v-show="successMessage" class="alert alert-success" role="alert">
                 {{ successMessage }}
             </div>
 
+            <!-- Listado de usuarios -->
             <table v-if="usuarios.length > 0" class="table table-hover">
                 <thead>
                     <tr>
+                        <th scope="col">Id</th>
                         <th scope="col">Nombres</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Perfil</th>
@@ -129,12 +166,13 @@ onMounted(() => {
                 </thead>
                 <tbody>
                     <tr v-for="usuario in usuarios" :key="usuario.id">
+                        <td>{{ usuario.id }}</td>
                         <td>{{ usuario.nombre }}</td>
                         <td>{{ usuario.correo }}</td>
                         <td>{{ usuario.perfil }}</td>
 
                         <td>
-                            <button @click="remove(usuario.id)" class="btn btn-danger"><i
+                            <button @click="removeUser(usuario.id)" class="btn btn-danger"><i
                                     class="bi bi-trash"></i></button>
                             <router-link :to="{ name: 'UsuariosUpdate', params: { id: usuario.id } }"
                                 class="btn btn-warning">
