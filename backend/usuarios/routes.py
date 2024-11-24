@@ -15,7 +15,7 @@ def listar_usuarios():
     perfil_id = identity["perfil_id"]
 
     if perfil_id != 1:  # Solo Administrador (3) puede crear usuarios
-        return jsonify({"msg": "No tiene permisos para crear usuarios"}), 403
+        return jsonify({"msg": "No tiene permisos para listar usuarios"}), 403
 
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -32,6 +32,29 @@ def listar_usuarios():
         cursor.close()
         conn.close()
 
+# Listar usuarios
+@usuarios_bp.route("/usuariosperfiles", methods=["GET"])
+@jwt_required()
+def listar_perfiles():
+    identity = get_jwt_identity()
+    perfil_id = identity["perfil_id"]
+
+    if perfil_id != 1:  # Solo Administrador (3) puede crear usuarios
+        return jsonify({"msg": "No tiene permisos para listar usuarios"}), 403
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        sql = """
+        SELECT id, descripcion FROM perfiles 
+        """
+        cursor.execute(sql)
+        perfiles = cursor.fetchall()
+        return jsonify(perfiles), 201
+    finally:
+        cursor.close()
+        conn.close()
 
 # Obtener un usuario
 @usuarios_bp.route("/usuarios/<int:id>", methods=["GET"])
@@ -52,6 +75,52 @@ def obtener_usuarios(id):
         INNER JOIN perfiles p ON p.id = u.id_perfil WHERE u.id = %s
         """
         cursor.execute(sql, (id,))
+        usuarios = cursor.fetchall()
+        if usuarios:
+            return jsonify(usuarios), 201
+        return jsonify({"message": "No se encontró el usuario"}), 201
+    finally:
+        cursor.close()
+        conn.close()
+    identity = get_jwt_identity()
+    perfil_id = identity["perfil_id"]
+
+    if perfil_id != 1:  # Solo Administrador (3) puede crear usuarios
+        return jsonify({"msg": "No tiene permisos para listar usuarios"}), 403
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        sql = """
+        SELECT id, descripcion FROM perfiles 
+        """
+        cursor.execute(sql)
+        perfiles = cursor.fetchall()
+        return jsonify(perfiles), 201
+    finally:
+        cursor.close()
+        conn.close()
+
+# Obtener un usuario
+@usuarios_bp.route("/usuarios/<correo>", methods=["GET"])
+@jwt_required()
+def obtener_usuario_x_correo(correo):
+    identity = get_jwt_identity()
+    perfil_id = identity["perfil_id"]
+
+    if perfil_id != 1:  # Solo Administrador (3) puede crear usuarios
+        return jsonify({"msg": "No tiene permisos para crear usuarios"}), 403
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        sql = """
+        SELECT u.id, u.nombre, u.correo, p.descripcion FROM usuarios u 
+        INNER JOIN perfiles p ON p.id = u.id_perfil WHERE u.correo = %s
+        """
+        cursor.execute(sql, (correo,))
         usuarios = cursor.fetchall()
         if usuarios:
             return jsonify(usuarios), 201

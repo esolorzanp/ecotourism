@@ -6,7 +6,7 @@
 }
 
 .form {
-  margin-top: 120px;
+  margin-top: 60px;
   border: 1px solid lightgray;
   border-radius: 12px;
   padding: 2rem;
@@ -14,18 +14,24 @@
   flex-direction: column;
 }
 .form__title {
-  margin-bottom: 2rem;
+  height: 14rem;
+  line-height: 14rem;
   text-align: center;
+  font-size: 54px;
+
 }
 .form__buttonsgroup {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  padding: 2rem 0px;
 }
 .form__button {
-  margin-right: 20px;
+  margin-right: 20px;/*
   padding-left: 50px;
-  padding-right: 50px;
+  padding-right: 50px;*/
+  width: 200px;
+  height: 45px;
 }
 .form__button:last-child{
   margin-right: 0px;
