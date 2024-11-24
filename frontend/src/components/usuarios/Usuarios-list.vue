@@ -24,13 +24,13 @@ const checkPermissions = () => {
         }
         return token  // Retornamos el token si es administrador
     } else {
-        router.push('/menu')
+        router.push('/login')
         return false
     }
 }
 
 // Función para cargar usuarios si se tienen permisos
-const loadUsuarios = async () => {
+const fetchUsuarios = async () => {
     const token = checkPermissions()
     if (!token) return
 
@@ -80,7 +80,7 @@ const remove = async (id) => {
             usuarios.value = response.data
             successMessage.value = 'Usuario eliminado exitosamente.'
             errorMessage.value = ''
-            loadUsuarios()
+            fetchUsuarios()
         }
     } catch (error) {
         errorMessage.value = error.response?.data?.message || 'Error al cargar los usuarios.'
@@ -96,7 +96,7 @@ const goBack = () => {
 
 // Cargar usuarios al montar el componente
 onMounted(() => {
-    loadUsuarios()
+    fetchUsuarios()
 })
 </script>
 
@@ -124,6 +124,7 @@ onMounted(() => {
                         <th scope="col">Nombres</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Perfil</th>
+                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -71,11 +71,11 @@ def obtener_usuarios(id):
 
     try:
         sql = """
-        SELECT u.id, u.nombre, u.correo, p.descripcion FROM usuarios u 
+        SELECT u.id, u.nombre, u.correo, u.id_perfil, p.descripcion FROM usuarios u 
         INNER JOIN perfiles p ON p.id = u.id_perfil WHERE u.id = %s
         """
         cursor.execute(sql, (id,))
-        usuarios = cursor.fetchall()
+        usuarios = cursor.fetchone()
         if usuarios:
             return jsonify(usuarios), 201
         return jsonify({"message": "No se encontró el usuario"}), 201
@@ -102,7 +102,7 @@ def obtener_usuarios(id):
         cursor.close()
         conn.close()
 
-# Obtener un usuario
+# Obtener un usuario por correo
 @usuarios_bp.route("/usuarios/<correo>", methods=["GET"])
 @jwt_required()
 def obtener_usuario_x_correo(correo):
@@ -117,11 +117,11 @@ def obtener_usuario_x_correo(correo):
 
     try:
         sql = """
-        SELECT u.id, u.nombre, u.correo, p.descripcion FROM usuarios u 
+        SELECT u.id, u.nombre, u.correo, u.id_perfil, p.descripcion FROM usuarios u 
         INNER JOIN perfiles p ON p.id = u.id_perfil WHERE u.correo = %s
         """
         cursor.execute(sql, (correo,))
-        usuarios = cursor.fetchall()
+        usuarios = cursor.fetchone()
         if usuarios:
             return jsonify(usuarios), 201
         return jsonify({"message": "No se encontró el usuario"}), 201

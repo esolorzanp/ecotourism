@@ -26,7 +26,8 @@ CREATE TABLE Usuarios(
 CREATE TABLE Sitios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     descripcion VARCHAR(200) NOT NULL,
-    detalle VARCHAR(200) NOT NULL
+    detalle VARCHAR(200) NOT NULL,
+    urlImg VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE Galeria (

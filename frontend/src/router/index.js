@@ -34,7 +34,7 @@ const router = createRouter({
       component: UsuariosCreate,
     },
     {
-      path: "/usuarios-update",
+      path: "/usuarios-update/:id",
       name: "UsuariosUpdate",
       component: UsuariosUpdate,
     },

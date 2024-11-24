@@ -33,7 +33,7 @@ const checkPermissions = () => {
         }
         return token  // Retornamos el token si es administrador
     } else {
-        router.push('/menu')
+        router.push('/login')
         return false
     }
 }

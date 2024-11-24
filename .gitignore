@@ -8,3 +8,5 @@ __pycache__/
 *.pyc
 
 
+/backend/auth/__pycache__
+/backend/usuarios/__pycache__
