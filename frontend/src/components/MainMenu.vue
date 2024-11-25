@@ -41,7 +41,7 @@ const logout = () => {
                             <a class="nav-link" href="/usuarios-list">Usuarios</a>
                         </li>
                         <li v-show="perfil === 2 | perfil === 3" class="nav-item">
-                            <a class="nav-link" href="#">Sitios</a>
+                            <a class="nav-link" href="/sitios-list">Sitios</a>
                         </li>
                         <li v-show="perfil === 2 | perfil === 3" class="nav-item">
                             <a class="nav-link" href="/equipo-list">Equipo</a>

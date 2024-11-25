@@ -23,7 +23,7 @@ def listar_sitios():
         """
         cursor.execute(sql)
         sitios = cursor.fetchall()
-        return jsonify(sitios), 200
+        return jsonify(sitios), 201
     finally:
         cursor.close()
         conn.close()
@@ -47,9 +47,9 @@ def obtener_sitio(id):
         SELECT id, descripcion, detalle FROM sitios WHERE id = %s
         """
         cursor.execute(sql, (id,))
-        sitio = cursor.fetchall()
+        sitio = cursor.fetchone()
         if sitio:
-            return jsonify(sitio), 200
+            return jsonify(sitio), 201
         return jsonify({"message": "Sitio no encontrado"}), 404
     finally:
         cursor.close()
@@ -117,7 +117,7 @@ def modificar_sitio(id):
         """
         cursor.execute(sql, (descripcion, detalle, id))
         conn.commit()
-        return jsonify({"message": "Sitio modificado exitosamente"}), 200
+        return jsonify({"message": "Sitio modificado exitosamente"}), 201
     finally:
         cursor.close()
         conn.close()
@@ -142,7 +142,7 @@ def eliminar_sitio(id):
         """
         cursor.execute(sql, (id,))
         conn.commit()
-        return jsonify({"message": "Sitio eliminado exitosamente"}), 200
+        return jsonify({"message": "Sitio eliminado exitosamente"}), 201
     finally:
         cursor.close()
         conn.close()
