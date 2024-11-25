@@ -56,10 +56,8 @@ const fetchUsuarios = async () => {
 }
 
 const redirectCreate = () => {
-    router.push("/usuarios-create")
+    router.push("/equipo-create")
 }
-
-
 
 // Función para validar si usuario ya existe por su correo
 const readUserByid = async (id) => {
@@ -113,7 +111,6 @@ const removeUser = async (id) => {
         })
 
         if (response.status === 201) {
-            console.log("entra a response")
             usuarios.value = response.data
             successMessage.value = 'Usuario eliminado exitosamente.'
             errorMessage.value = ''

@@ -54,8 +54,28 @@ CREATE TABLE Equipo(
     edad SMALLINT NOT NULL,
     genero VARCHAR(200) NOT NULL,
     hobbies VARCHAR(200) NOT NULL,
-    conocimientos VARCHAR(200)
+    conocimientos VARCHAR(200),
+    urlImg VARCHAR(200),
 );
+
+INSERT INTO
+    equipo (
+        nombre,
+        cargo,
+        edad,
+        genero,
+        hobbies,
+        conocimientos
+    )
+VALUES
+    (
+        'Donald Trump',
+        'CEO',
+        '70',
+        'Masculino',
+        'Joder a Biden',
+        'Empresario, presidente, administración'
+    );
 
 CREATE TABLE Contactenos(
     id INT AUTO_INCREMENT PRIMARY KEY,

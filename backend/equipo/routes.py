@@ -25,7 +25,7 @@ def listar_equipo():
         """
         cursor.execute(sql)
         equipo = cursor.fetchall()
-        return jsonify(equipo), 200
+        return jsonify(equipo), 201
     finally:
         cursor.close()
         conn.close()
@@ -49,9 +49,36 @@ def obtener_miembro_equipo(id):
         SELECT id, nombre, cargo, edad, genero, hobbies, conocimientos FROM equipo WHERE id = %s
         """
         cursor.execute(sql, (id,))
-        miembro = cursor.fetchall()
+        miembro = cursor.fetchone()
         if miembro:
-            return jsonify(miembro), 200
+            return jsonify(miembro), 201
+        return jsonify({"message": "Miembro del equipo no encontrado"}), 404
+    finally:
+        cursor.close()
+        conn.close()
+
+# Obtener un miembro del equipo por Nombre
+@equipo_bp.route("/equipo/<nombre>", methods=["GET"])
+@jwt_required()
+def obtener_miembro_equipo_x_nombre(nombre):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    identity = get_jwt_identity()
+    perfil_id = identity["perfil_id"]
+
+    if perfil_id  != 2:  # Solo empleado (2) puede obtener al miembro del equipo por id
+        return jsonify({"msg": "No tiene permisos para obtner equipo"}), 403
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        sql = """
+        SELECT id, nombre, cargo, edad, genero, hobbies, conocimientos FROM equipo WHERE nombre = %s
+        """
+        cursor.execute(sql, (nombre,))
+        miembro = cursor.fetchone()
+        if miembro:
+            return jsonify(miembro), 201
         return jsonify({"message": "Miembro del equipo no encontrado"}), 404
     finally:
         cursor.close()
@@ -125,7 +152,7 @@ def modificar_miembro_equipo(id):
         """
         cursor.execute(sql, (nombre, cargo, edad, genero, hobbies, conocimientos, id))
         conn.commit()
-        return jsonify({"message": "Miembro del equipo modificado exitosamente"}), 200
+        return jsonify({"message": "Miembro del equipo modificado exitosamente"}), 201
     finally:
         cursor.close()
         conn.close()
@@ -150,7 +177,7 @@ def eliminar_miembro_equipo(id):
         """
         cursor.execute(sql, (id,))
         conn.commit()
-        return jsonify({"message": "Miembro del equipo eliminado exitosamente"}), 200
+        return jsonify({"message": "Miembro del equipo eliminado exitosamente"}), 201
     finally:
         cursor.close()
         conn.close()

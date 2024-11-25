@@ -44,10 +44,13 @@ const logout = () => {
                             <a class="nav-link" href="#">Sitios</a>
                         </li>
                         <li v-show="perfil === 2 | perfil === 3" class="nav-item">
-                            <a class="nav-link" href="#">Comentarios</a>
+                            <a class="nav-link" href="/equipo-list">Equipo</a>
                         </li>
                         <li v-show="perfil === 2 | perfil === 3" class="nav-item">
-                            <a class="nav-link" href="#">Preguntas frecuentes</a>
+                            <a class="nav-link" href="/comentarios-list">Comentarios</a>
+                        </li>
+                        <li v-show="perfil === 2 | perfil === 3" class="nav-item">
+                            <a class="nav-link" href="/preguntasfrecuentes-list">Preguntas frecuentes</a>
                         </li>
                     </ul>
                 </div>

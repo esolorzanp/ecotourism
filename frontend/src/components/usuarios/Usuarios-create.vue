@@ -94,11 +94,12 @@ const createUser = async () => {
             limpiar()
         }
     } catch (error) {
-        errorMessage.value = error.response?.data?.message || 'Error al crear el usuario. (catch)'
+        errorMessage.value = error.response?.data?.message || 'Error al crear el usuario'
         successMessage.value = ''
     }
 }
-// Función para crear usuario
+
+// Función para validar usuario que no exista otro por correo
 const readUserxCorreo = async () => {
     const token = checkPermissions()
     if (!token) return
@@ -123,10 +124,11 @@ const readUserxCorreo = async () => {
             return true
         }
     } catch (error) {
-        errorMessage.value = error.response?.data?.message || 'Error al leer el usuario por correo. (catch)'
+        errorMessage.value = error.response?.data?.message || 'Error al leer el usuario por correo'
         successMessage.value = ''
     }
 }
+
 const camposValidos = () => {
     if (inClave.value != inClaveConfirmada.value) {
         errorMessage.value = 'La constraseña y su confirmación no son las mismas'

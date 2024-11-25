@@ -36,3 +36,7 @@
 .form__button:last-child{
   margin-right: 0px;
 }
+
+.form-floating .form-select {
+  margin-bottom: 1rem;
+}
