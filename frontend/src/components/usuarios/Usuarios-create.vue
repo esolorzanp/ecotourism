@@ -72,7 +72,7 @@ const createUser = async () => {
     if (!token) return
     if (!camposValidos()) return
     if (!readUserxCorreo()) return
-
+    alert("createUser")
     try {
         const response = await axios.post(
             'http://127.0.0.1:5000/usuarios',

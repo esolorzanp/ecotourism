@@ -38,10 +38,9 @@ const checkPermissions = () => {
 const createSitio = async () => {
     const token = checkPermissions()
     if (!token) return
-    if (!camposValidos()) return
-    if (!readsitioDescripcion()) return
 
     try {
+        console.log('Antes de la petición...')
         const response = await axios.post(
             'http://127.0.0.1:5000/sitios',
             {
@@ -54,6 +53,7 @@ const createSitio = async () => {
                 },
             }
         )
+        console.log(response)
         if (response.status === 201) {
             successMessage.value = 'Sitio creado exitosamente.'
             errorMessage.value = ''
@@ -65,49 +65,11 @@ const createSitio = async () => {
     }
 }
 
-// Función para validar sitio que no exista con la misma descripción
-const readsitioDescripcion = async () => {
-    const token = checkPermissions()
-    if (!token) return
-
-    try {
-        const response = await axios.get(
-            `http://127.0.0.1:5000/sitios/${inDescripcion}`,
-            //{},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
-        if (response.status === 201 && response.data.length > 0) {
-            successMessage.value = ''
-            errorMessage.value = 'El sitio ya existe con esta descripción'
-            return false
-        } else {
-            successMessage.value = ''
-            errorMessage.value = ''
-            return true
-        }
-    } catch (error) {
-        errorMessage.value = error.response?.data?.message || 'Error al leer el sitio por descripción'
-        successMessage.value = ''
-    }
-}
-
-const camposValidos = () => {
-    /*if (inClave.value != inClaveConfirmada.value) {
-        errorMessage.value = 'La constraseña y su confirmación no son las mismas'
-        successMessage.value = ''
-        return false
-    }*/
-    return true
-}
-
 const limpiar = () => {
     inDescripcion.value = ''
     inDetalle.value = ''
 }
+
 // Volver al menú principal
 const goBack = () => {
     router.push('/sitios-list')
@@ -124,8 +86,8 @@ onMounted(() => {
         <form class="form" @submit.prevent="createSitio">
             <h1 class="form__title">Creación de Sitios</h1>
             <section>
-                <p v-show="errorMessage" class="alert alert-danger">{{ errorMessage }}</p>
-                <p v-show="successMessage" class="alert alert-success">{{ successMessage }}</p>
+                <p v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</p>
+                <p v-if="successMessage" class="alert alert-success">{{ successMessage }}</p>
                 <div class="form-floating mb-3">
                     <input v-model="inDescripcion" type="text" class="form-control" id="floatingDescripcion"
                         placeholder="Ingrese la descripcion" :required="true">

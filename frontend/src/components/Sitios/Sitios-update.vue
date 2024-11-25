@@ -65,13 +65,10 @@ const fetchSitio = async () => {
     }
 }
 
-
 // Función para actuzalizar sitio
 const updateSitio = async () => {
     const token = checkPermissions()
     if (!token) return
-    //if (!camposValidos()) return
-    if (!readsitioDescripcion()) return
 
     try {
         const response = await axios.put(
@@ -87,7 +84,7 @@ const updateSitio = async () => {
             }
         )
         if (response.status === 201) {
-            successMessage.value = 'Sitio actuzalizado  exitosamente.'
+            successMessage.value = 'Sitio actuzalizado exitosamente.'
             errorMessage.value = ''
         }
     } catch (error) {
@@ -98,8 +95,8 @@ const updateSitio = async () => {
 
 // Función para validar sitio que no exista con la misma descripción
 const readsitioDescripcion = async () => {
-    const token = checkPermissions()
-    if (!token) return
+    //const token = checkPermissions()
+    //if (!token) return
 
     try {
         const response = await axios.get(
@@ -126,15 +123,6 @@ const readsitioDescripcion = async () => {
     }
 }
 
-const camposValidos = () => {
-    /*if (inClave.value != inClaveConfirmada.value) {
-        errorMessage.value = 'La constraseña y su confirmación no son las mismas'
-        successMessage.value = ''
-        return false
-    }*/
-    return true
-}
-
 const limpiar = () => {
     inDescripcion.value = ''
     inDetalle.value = ''
@@ -146,7 +134,6 @@ const goBack = () => {
 
 // Verificar permisos al montar el componente
 onMounted(() => {
-    //checkPermissions()
     fetchSitio()
 })
 </script>
@@ -156,8 +143,8 @@ onMounted(() => {
         <form class="form" @submit.prevent="updateSitio">
             <h1 class="form__title">Actualización de un Sitio</h1>
             <section>
-                <p v-show="errorMessage" class="alert alert-danger">{{ errorMessage }}</p>
-                <p v-show="successMessage" class="alert alert-success">{{ successMessage }}</p>
+                <p v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</p>
+                <p v-if="successMessage" class="alert alert-success">{{ successMessage }}</p>
                 <div class="form-floating mb-3">
                     <input v-model="inDescripcion" type="text" class="form-control" id="floatingDescripcion"
                         placeholder="Ingrese la descripcion" :required="true">

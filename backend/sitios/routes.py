@@ -55,34 +55,6 @@ def obtener_sitio(id):
         cursor.close()
         conn.close()
 
-# Obtener un sitio por ID
-@sitios_bp.route("/sitios/<descripcion>", methods=["GET"])
-@jwt_required()
-def obtener_sitio_x_descripcion(id):
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-    identity = get_jwt_identity()
-    perfil_id = identity["perfil_id"]
-
-    if perfil_id  != 2:  # Solo empleado (2) pueden obtener sitio por id
-        return jsonify({"msg": "No tiene permisos para obtner sitios"}), 403
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-
-    try:
-        sql = """
-        SELECT id, descripcion, detalle FROM sitios WHERE descripcion = %s
-        """
-        cursor.execute(sql, (descripcion,))
-        sitio = cursor.fetchone()
-        if sitio:
-            return jsonify(sitio), 201
-        return jsonify({"message": "Sitio no encontrado"}), 404
-    finally:
-        cursor.close()
-        conn.close()
-
-
 # Agregar un sitio
 @sitios_bp.route("/sitios", methods=["POST"])
 @jwt_required()
