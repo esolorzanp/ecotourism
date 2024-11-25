@@ -11,7 +11,7 @@ const successMessage = ref('')
 
 // Variables de captura
 const inDescripcion = ref('')
-const inDetalle= ref('')
+const inDetalle = ref('')
 const inUrl = ref('')
 
 // Función para obtener el perfil y verificar permisos
@@ -72,7 +72,7 @@ const readsitioDescripcion = async () => {
 
     try {
         const response = await axios.get(
-            `http://127.0.0.1:5000/sitios/${inDescripcion.value}`,
+            `http://127.0.0.1:5000/sitios/${inDescripcion}`,
             //{},
             {
                 headers: {
@@ -136,7 +136,7 @@ onMounted(() => {
                         placeholder="Ingrese la descripción" :required="true">
                     <label for="floatingDetalle">Detalle</label>
                 </div>
-               
+
                 <!-- Buttons group-->
                 <div class="form__buttonsgroup">
                     <button type="submit" class="form__button btn btn-primary">Agregar</button>
@@ -149,5 +149,4 @@ onMounted(() => {
 
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

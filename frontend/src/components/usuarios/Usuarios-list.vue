@@ -56,7 +56,7 @@ const fetchUsuarios = async () => {
 }
 
 const redirectCreate = () => {
-    router.push("/equipo-create")
+    router.push("/usuarios-create")
 }
 
 // Función para validar si usuario ya existe por su correo

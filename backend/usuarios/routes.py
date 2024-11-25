@@ -153,7 +153,7 @@ def crear_usuarios():
 
     try:
         sql = """
-        INSERT INTO USUARIOS (nombre, correo, clave, id_perfil) VALUES (%s,%s,%s,%s)
+        INSERT INTO usuarios (nombre, correo, clave, id_perfil) VALUES (%s,%s,%s,%s)
         """
         cursor.execute(sql, (nombre, correo, clave_encriptada, id_perfil))
         conn.commit()
@@ -183,7 +183,7 @@ def modificar_usuarios(id):
 
     try:
         sql = """
-        UPDATE USUARIOS SET nombre = %s, correo = %s, id_perfil = %s WHERE id = %s
+        UPDATE usuarios SET nombre = %s, correo = %s, id_perfil = %s WHERE id = %s
         """
         cursor.execute(sql, (nombre, correo, id_perfil, id))
         conn.commit()
@@ -208,7 +208,7 @@ def eliminar_usuarios(id):
 
     try:
         sql = """
-        DELETE FROM USUARIOS WHERE id = %s
+        DELETE FROM usuarios WHERE id = %s
         """
         cursor.execute(sql, (id,))
         conn.commit()
