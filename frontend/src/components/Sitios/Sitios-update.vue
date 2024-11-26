@@ -13,7 +13,7 @@ const successMessage = ref('')
 // Variables de captura
 const inId = route.params.id
 const inDescripcion = ref('')
-const inDetalle= ref('')
+const inDetalle = ref('')
 
 
 // Función para obtener el perfil y verificar permisos
@@ -47,7 +47,7 @@ const fetchSitio = async () => {
                 Authorization: `Bearer ${token}`,
             },
         })
-        
+
         if (response.status === 201) {
             const sitio = response.data
             inDescripcion.value = sitio.descripcion
@@ -151,16 +151,16 @@ onMounted(() => {
                     <label for="floatingDescripcion">Descripcion</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input v-model="inDetalle" type="text" class="form-control" id="floatingDetalle"
-                        placeholder="Ingrese la descripción" :required="true">
+                    <textarea v-model="inDetalle" type="text" class="form-control" id="floatingDetalle"
+                        placeholder="Ingrese la descripción" style="height: 100px" :required="true" />
                     <label for="floatingDetalle">Detalle</label>
                 </div>
-               
+
                 <!-- Buttons group-->
                 <div class="form__buttonsgroup">
                     <button type="submit" class="form__button btn btn-primary">Actualizar</button>
                     <button @click="limpiar" class="form__button btn btn-secondary">Limpiar</button>
-                    <button @click="goBack" class="form__button btn btn-secondary">Regresar al menú</button>
+                    <button @click="goBack" class="form__button btn btn-secondary">Regresar a la lista</button>
                 </div>
             </section>
         </form>
@@ -168,5 +168,4 @@ onMounted(() => {
 
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

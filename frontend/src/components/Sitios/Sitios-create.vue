@@ -92,8 +92,8 @@ onMounted(() => {
                     <label for="floatingDescripcion">Descripcion</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input v-model="inDetalle" type="text" class="form-control" id="floatingDetalle"
-                        placeholder="Ingrese la descripción" :required="true">
+                    <textarea v-model="inDetalle" type="text" class="form-control" id="floatingDetalle"
+                        placeholder="Ingrese la descripción"  style="height: 100px" :required="true" />
                     <label for="floatingDetalle">Detalle</label>
                 </div>
 
@@ -101,7 +101,7 @@ onMounted(() => {
                 <div class="form__buttonsgroup">
                     <button type="submit" class="form__button btn btn-primary">Agregar</button>
                     <button @click="limpiar" class="form__button btn btn-secondary">Limpiar</button>
-                    <button @click="goBack" class="form__button btn btn-secondary">Regresar al menú</button>
+                    <button @click="goBack" class="form__button btn btn-secondary">Regresar a la lista</button>
                 </div>
             </section>
         </form>

@@ -211,7 +211,7 @@ onMounted(() => {
                 <div class="form__buttonsgroup">
                     <button type="submit" class="form__button btn btn-primary">Actualizar</button>
                     <button @click="limpiar" class="form__button btn btn-secondary">Limpiar</button>
-                    <button @click="goBack" class="form__button btn btn-secondary">Regresar al menú</button>
+                    <button @click="goBack" class="form__button btn btn-secondary">Regresar a la lista</button>
                 </div>
             </section>
         </form>
