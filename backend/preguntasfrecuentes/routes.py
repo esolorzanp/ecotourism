@@ -15,7 +15,7 @@ def listar_preguntas():
     identity = get_jwt_identity()
     perfil_id = identity["perfil_id"] # 
 
-    if perfil_id != 2 & perfil_id != 3:  # Solo empleado (2) y supervisor (3) pueden listar preguntas frecuentes
+    if perfil_id != 2 and perfil_id != 3:  # Solo empleado (2) y supervisor (3) pueden listar preguntas frecuentes
         return jsonify({"msg": "No tiene permisos para listar preguntas frecuentes"}), 403
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)

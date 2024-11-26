@@ -15,15 +15,12 @@ def login():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    print(correo)
-    print(clave)
-
     try:
-        cursor.execute("SELECT id, clave, id_perfil FROM usuarios WHERE correo = %s", (correo,))
+        cursor.execute("SELECT id, clave, id_perfil, nombre FROM usuarios WHERE correo = %s", (correo,))
         user = cursor.fetchone()
         
         if user and bcrypt.checkpw(clave.encode('utf-8'), user[1].encode('utf-8')):
-            access_token = create_access_token(identity={'id': user[0], 'perfil_id': user[2]})
+            access_token = create_access_token(identity={'id': user[0], 'perfil_id': user[2], 'nombre': user[3]})
             return jsonify(access_token=access_token), 200
         else:
             return jsonify({"Error": "Credenciales inválidas"}), 401

@@ -12,7 +12,7 @@ def listar_sitios():
     identity = get_jwt_identity()
     perfil_id = identity["perfil_id"]   #El listar sitios funciona para los tres roles, REVISAR
 
-    if perfil_id != 2 & perfil_id != 3:  # Solo empleado (2) y supervisor (3) pueden listar sitios 
+    if perfil_id != 2 and perfil_id != 3:  # Solo empleado (2) y supervisor (3) pueden listar sitios 
         return jsonify({"msg": "No tiene permisos para listar sitios"}), 403
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)

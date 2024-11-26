@@ -8,6 +8,7 @@ const router = useRouter()
 const preguntasfrecuentes = ref([])
 const errorMessage = ref('')
 const successMessage = ref('')
+let usuarioIdPerfil = ''
 
 // Función para obtener el perfil y verificar permisos
 const checkPermissions = () => {
@@ -17,11 +18,12 @@ const checkPermissions = () => {
         const decodedToken = jwtDecode(token)
         const perfil = decodedToken.sub.perfil_id
 
-        if (perfil !== 2) {
+        if (perfil !== 2 & perfil !== 3) {
             errorMessage.value = 'No tienes permiso para ver esta página.'
             router.push('/menu')
             return false
         }
+        usuarioIdPerfil = perfil
         return token  // Retornamos el token si es administrador
     } else {
         router.push('/login')
@@ -103,7 +105,8 @@ onMounted(() => {
         <section class="form">
             <h1 class="form__title">Gestión de preguntas frecuentes</h1>
             <nav class="form__buttonsgroup">
-                <button @click="redirectCreate()" class="form__button btn btn-primary">Agregar</button>
+                <button v-if="usuarioIdPerfil === 2" @click="redirectCreate()"
+                    class="form__button btn btn-primary">Agregar</button>
                 <button @click="goBack" class="form__button btn btn-secondary">Regresar al menú</button>
             </nav>
             <!-- Zona mensajes -->
@@ -133,9 +136,11 @@ onMounted(() => {
                         <td>{{ preguntafrecuente.orden }}</td>
 
                         <td>
-                            <button @click="removePreguntasFrecuentes(preguntafrecuente.id)" class="btn btn-danger"><i
+                            <button v-if="usuarioIdPerfil === 2"
+                                @click="removePreguntasFrecuentes(preguntafrecuente.id)" class="btn btn-danger"><i
                                     class="bi bi-trash"></i></button>
-                            <router-link :to="{ name: 'PreguntasFrecuentesUpdate', params: { id: preguntafrecuente.id } }"
+                            <router-link v-if="usuarioIdPerfil === 2"
+                                :to="{ name: 'PreguntasFrecuentesUpdate', params: { id: preguntafrecuente.id } }"
                                 class="btn btn-warning">
                                 <i class="bi bi-pencil"></i>
                             </router-link>

@@ -8,6 +8,7 @@ const router = useRouter()
 const sitios = ref([])
 const errorMessage = ref('')
 const successMessage = ref('')
+let usuarioIdPerfil = ''
 
 // Función para obtener el perfil y verificar permisos
 const checkPermissions = () => {
@@ -17,11 +18,12 @@ const checkPermissions = () => {
         const decodedToken = jwtDecode(token)
         const perfil = decodedToken.sub.perfil_id
 
-        if (perfil !== 2) {
+        if (perfil !== 2 && perfil !== 3) {
             errorMessage.value = 'No tienes permiso para ver esta página.'
             router.push('/menu')
             return false
         }
+        usuarioIdPerfil = perfil
         return token  // Retornamos el token si es empleado o supervisor
     } else {
         router.push('/login')
@@ -40,7 +42,7 @@ const fetchSitios = async () => {
                 Authorization: `Bearer ${token}`,
             },
         })
-        
+
         if (response.status === 201) {
             sitios.value = response.data
             errorMessage.value = ''
@@ -105,7 +107,8 @@ onMounted(() => {
         <section class="form">
             <h1 class="form__title">Gestión de Sitios</h1>
             <nav class="form__buttonsgroup">
-                <button @click="redirectCreate()" class="form__button btn btn-primary">Agregar</button>
+                <button v-if="usuarioIdPerfil === 2" @click="redirectCreate()"
+                    class="form__button btn btn-primary">Agregar</button>
                 <button @click="goBack" class="form__button btn btn-secondary">Regresar al menú</button>
             </nav>
             <!-- Zona mensajes -->
@@ -135,10 +138,10 @@ onMounted(() => {
                         <td>{{ sitio.urlimg }}</td>
 
                         <td>
-                            <button @click="removeSitio(sitio.id)" class="btn btn-danger"><i
-                                    class="bi bi-trash"></i></button>
-                            <router-link :to="{ name: 'SitiosUpdate', params: { id: sitio.id } }"
-                                class="btn btn-warning">
+                            <button v-if="usuarioIdPerfil === 2" @click="removeSitio(sitio.id)"
+                                class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                            <router-link v-if="usuarioIdPerfil === 2"
+                                :to="{ name: 'SitiosUpdate', params: { id: sitio.id } }" class="btn btn-warning">
                                 <i class="bi bi-pencil"></i>
                             </router-link>
                         </td>
@@ -149,6 +152,4 @@ onMounted(() => {
     </main>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

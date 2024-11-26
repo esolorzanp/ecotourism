@@ -14,7 +14,7 @@ def listar_equipo():
     identity = get_jwt_identity()
     perfil_id = identity["perfil_id"] # mismo error lo pueden listar los 3 roles REVISAR
 
-    if perfil_id != 2 & perfil_id != 3:  # Solo empleado (2) y supervisor (3) pueden listar el equipo
+    if perfil_id != 2 and perfil_id != 3:  # Solo empleado (2) y supervisor (3) pueden listar el equipo
         return jsonify({"msg": "No tiene permisos para listar equipo"}), 403
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -156,7 +156,6 @@ def modificar_miembro_equipo(id):
     finally:
         cursor.close()
         conn.close()
-
 
 # Eliminar un miembro del equipo
 @equipo_bp.route("/equipo/<int:id>", methods=["DELETE"])
