@@ -103,7 +103,6 @@ const updateUser = async () => {
     const token = checkPermissions()
     if (!token) return
     if (!camposValidos()) return
-    if (!readUserxCorreo()) return
 
     try {
         const response = await axios.put(
@@ -126,38 +125,6 @@ const updateUser = async () => {
         }
     } catch (error) {
         errorMessage.value = error.response?.data?.message || 'Error al crear el usuario. (catch)'
-        successMessage.value = ''
-    }
-}
-
-// Función para validar si usuario ya existe por su correo
-const readUserxCorreo = async () => {
-    const token = checkPermissions()
-    if (!token) return
-
-    try {
-        const response = await axios.get(
-            `http://127.0.0.1:5000/usuarios/${inCorreo.value}`,
-            //{},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
-        const userCorreo = response.data.correo
-        const userId = response.data.id
-        if (response.status === 201 && userCorreo.value === inCorreo.value && userId != inId) {
-            successMessage.value = ''
-            errorMessage.value = 'Usuario ya existe con este correo'
-            return false
-        } else {
-            successMessage.value = ''
-            errorMessage.value = ''
-            return true
-        }
-    } catch (error) {
-        errorMessage.value = error.response?.data?.message || 'Error al leer el usuario por correo. (catch)'
         successMessage.value = ''
     }
 }

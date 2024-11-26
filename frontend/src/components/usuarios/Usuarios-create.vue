@@ -15,8 +15,6 @@ const inCorreo = ref('')
 const inClave = ref('')
 const inPerfil = ref('')
 const inClaveConfirmada = ref('')
-//const usuario = ref({})
-
 
 // Función para obtener el perfil y verificar permisos
 const checkPermissions = () => {
@@ -71,8 +69,6 @@ const createUser = async () => {
     const token = checkPermissions()
     if (!token) return
     if (!camposValidos()) return
-    if (!readUserxCorreo()) return
-    alert("createUser")
     try {
         const response = await axios.post(
             'http://127.0.0.1:5000/usuarios',
@@ -95,36 +91,6 @@ const createUser = async () => {
         }
     } catch (error) {
         errorMessage.value = error.response?.data?.message || 'Error al crear el usuario'
-        successMessage.value = ''
-    }
-}
-
-// Función para validar usuario que no exista otro por correo
-const readUserxCorreo = async () => {
-    const token = checkPermissions()
-    if (!token) return
-
-    try {
-        const response = await axios.get(
-            `http://127.0.0.1:5000/usuarios/${inCorreo.value}`,
-            //{},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
-        if (response.status === 201 && response.data.length > 0) {
-            successMessage.value = ''
-            errorMessage.value = 'Usuario ya existe con este correo'
-            return false
-        } else {
-            successMessage.value = ''
-            errorMessage.value = ''
-            return true
-        }
-    } catch (error) {
-        errorMessage.value = error.response?.data?.message || 'Error al leer el usuario por correo'
         successMessage.value = ''
     }
 }

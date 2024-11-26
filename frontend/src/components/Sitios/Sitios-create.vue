@@ -40,7 +40,6 @@ const createSitio = async () => {
     if (!token) return
 
     try {
-        console.log('Antes de la petición...')
         const response = await axios.post(
             'http://127.0.0.1:5000/sitios',
             {
@@ -53,7 +52,6 @@ const createSitio = async () => {
                 },
             }
         )
-        console.log(response)
         if (response.status === 201) {
             successMessage.value = 'Sitio creado exitosamente.'
             errorMessage.value = ''

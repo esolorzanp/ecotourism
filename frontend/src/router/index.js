@@ -92,7 +92,7 @@ const router = createRouter({
       component: EquipoUpdate,
     },
     {
-      path: "/preguntasFrecuentes-list",
+      path: "/preguntasfrecuentes-list",
       name: "PreguntasFrecuentesList",
       component: PreguntasFrecuentesList,
     },

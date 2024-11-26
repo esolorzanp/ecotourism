@@ -9,6 +9,7 @@ preguntas_bp = Blueprint("preguntasfrecuentes", __name__)
 @preguntas_bp.route("/preguntasfrecuentes", methods=["GET"])
 @jwt_required()
 def listar_preguntas():
+    print('Entra al backend')
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     identity = get_jwt_identity()
@@ -25,11 +26,10 @@ def listar_preguntas():
         """
         cursor.execute(sql)
         preguntas = cursor.fetchall()
-        return jsonify(preguntas), 200
+        return jsonify(preguntas), 201
     finally:
         cursor.close()
         conn.close()
-
 
 # Obtener una pregunta frecuente por ID
 @preguntas_bp.route("/preguntasfrecuentes/<int:id>", methods=["GET"])
@@ -50,15 +50,17 @@ def obtener_pregunta(id):
         SELECT id, pregunta, respuesta, orden FROM preguntasfrecuentes WHERE id = %s
         """
         cursor.execute(sql, (id,))
-        pregunta = cursor.fetchall()
+        pregunta = cursor.fetchone()
         if pregunta:
-            return jsonify(pregunta), 200
+            return jsonify(pregunta), 201
         return jsonify({"message": "Pregunta no encontrada"}), 404
     finally:
         cursor.close()
         conn.close()
 
  # Agregar una pregunta frecuente
+
+# Adicionar una pregunta frecuente
 @preguntas_bp.route("/preguntasfrecuentes", methods=["POST"])
 @jwt_required()
 def crear_pregunta():
@@ -120,12 +122,14 @@ def modificar_pregunta(id):
         """
         cursor.execute(sql, (pregunta, respuesta, orden, id))
         conn.commit()
-        return jsonify({"message": "Pregunta modificada exitosamente"}), 200
+        return jsonify({"message": "Pregunta modificada exitosamente"}), 201
     finally:
         cursor.close()
         conn.close()
 
         # Eliminar una pregunta frecuente
+
+# Eliminar una pregunta frecuente
 @preguntas_bp.route("/preguntasfrecuentes/<int:id>", methods=["DELETE"])
 @jwt_required()
 def eliminar_pregunta(id):
@@ -144,7 +148,7 @@ def eliminar_pregunta(id):
         """
         cursor.execute(sql, (id,))
         conn.commit()
-        return jsonify({"message": "Pregunta eliminada exitosamente"}), 200
+        return jsonify({"message": "Pregunta eliminada exitosamente"}), 201
     finally:
         cursor.close()
         conn.close()
