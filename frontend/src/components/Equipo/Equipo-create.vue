@@ -41,7 +41,6 @@ const createEquipo = async () => {
     const token = checkPermissions()
     if (!token) return
     if (!camposValidos()) return
-    if (!readEquipoNombre()) return
 
     try {
         const response = await axios.post(
@@ -67,36 +66,6 @@ const createEquipo = async () => {
         }
     } catch (error) {
         errorMessage.value = error.response?.data?.message || 'Error al crear el integrante del equipo'
-        successMessage.value = ''
-    }
-}
-
-// Función para validar integrate de equipo que no exista otro por nombre
-const readEquipoNombre = async () => {
-    const token = checkPermissions()
-    if (!token) return
-
-    try {
-        const response = await axios.get(
-            `http://127.0.0.1:5000/equipo/${inNombre.value}`,
-            //{},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
-        if (response.status === 201 && response.data.length > 0) {
-            successMessage.value = ''
-            errorMessage.value = 'Integrante de equipo ya existe con este nombre'
-            return false
-        } else {
-            successMessage.value = ''
-            errorMessage.value = ''
-            return true
-        }
-    } catch (error) {
-        errorMessage.value = error.response?.data?.message || 'Error al leer el integrante de equipo por nombre'
         successMessage.value = ''
     }
 }

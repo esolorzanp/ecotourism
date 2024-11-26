@@ -30,7 +30,6 @@ const logout = () => {
 
 <template>
     <div class="container">
-
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">EcoTourism</a>
@@ -57,8 +56,7 @@ const logout = () => {
                             <a class="nav-link" href="/preguntasfrecuentes-list">Preguntas frecuentes</a>
                         </li>
                         <li>
-                            <a class="nav-link" @click="logout" href="#"><i
-                                    class="bi bi-box-arrow-right"></i>Salir</a>
+                            <a class="nav-link" @click="logout" href="#"><i class="bi bi-box-arrow-right"></i>Salir</a>
                         </li>
                     </ul>
                     <span class="navbar-text">
@@ -68,7 +66,10 @@ const logout = () => {
             </div>
         </nav>
     </div>
-
+    <div class="imagenes d-flex flex-row flex-wrap justify-content-evenly">
+        <img src="/img/buenaventura1.png" class="rounded float-start" alt="Puente de Tierra" srcset="">
+        <img src="/img/buenaventura2.png" class="rounded float-end" alt="San Cipriano" srcset="">
+    </div>
 </template>
 
 <style scoped>
@@ -79,7 +80,15 @@ const logout = () => {
 .nav-link:hover {
     border-bottom: 1px solid gray;
 }
-.navbar-text span{
+
+.navbar-text span {
     font-weight: bold;
+}
+
+img {
+    max-width: 700px;
+}
+.imagenes{
+    margin-top: 5rem;
 }
 </style>

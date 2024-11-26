@@ -26,7 +26,7 @@ CREATE TABLE usuarios(
 CREATE TABLE sitios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     descripcion VARCHAR(200) NOT NULL,
-    detalle VARCHAR(200) NOT NULL,
+    detalle VARCHAR(2000) NOT NULL,
     urlImg VARCHAR(200) NOT NULL
 );
 
@@ -86,7 +86,7 @@ CREATE TABLE contactenos(
 
 CREATE TABLE preguntasfrecuentes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    pregunta VARCHAR(200) NOT NULL,
-    respuesta VARCHAR(200) NOT NULL,
+    pregunta VARCHAR(400) NOT NULL,
+    respuesta VARCHAR(2000) NOT NULL,
     orden VARCHAR(200) NOT NULL
 );
