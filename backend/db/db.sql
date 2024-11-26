@@ -2,19 +2,19 @@ CREATE DATABASE dbEcoTourismEsp;
 
 USE dbEcoTourismEsp;
 
-CREATE TABLE Perfiles(
+CREATE TABLE perfiles(
     id INT AUTO_INCREMENT PRIMARY KEY,
     descripcion VARCHAR(200) NOT NULL
 );
 
 INSERT INTO
-    Perfiles (descripcion)
+    perfiles (descripcion)
 VALUES
     ('Administrador'),
     ('Empleado'),
     ('Supervisor');
 
-CREATE TABLE Usuarios(
+CREATE TABLE usuarios(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(200) NOT NULL,
     correo VARCHAR(200) NOT NULL,
@@ -23,21 +23,21 @@ CREATE TABLE Usuarios(
     CONSTRAINT FK_UsuariosPerfiles FOREIGN KEY (id_perfil) REFERENCES Perfiles(id)
 );
 
-CREATE TABLE Sitios (
+CREATE TABLE sitios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     descripcion VARCHAR(200) NOT NULL,
     detalle VARCHAR(200) NOT NULL,
     urlImg VARCHAR(200) NOT NULL
 );
 
-CREATE TABLE Galeria (
+CREATE TABLE galeria (
     id INT AUTO_INCREMENT PRIMARY KEY,
     descripcion VARCHAR(200) NOT NULL,
     orden SMALLINT NOT NULL,
     ruta VARCHAR(200) NOT NULL
 );
 
-CREATE TABLE Comentarios(
+CREATE TABLE comentarios(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombres VARCHAR(200) NOT NULL,
     ocupacion VARCHAR(200) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE Comentarios(
     fecha DATE NOT NULL
 );
 
-CREATE TABLE Equipo(
+CREATE TABLE equipo(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(200) NOT NULL,
     cargo VARCHAR(200) NOT NULL,
@@ -77,14 +77,14 @@ VALUES
         'Empresario, presidente, administración'
     );
 
-CREATE TABLE Contactenos(
+CREATE TABLE contactenos(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombres VARCHAR(200) NOT NULL,
     correo VARCHAR(200) NOT NULL,
     comentarios VARCHAR(2000) NOT NULL
 );
 
-CREATE TABLE PreguntasFrecuentes (
+CREATE TABLE preguntasfrecuentes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pregunta VARCHAR(200) NOT NULL,
     respuesta VARCHAR(200) NOT NULL,
